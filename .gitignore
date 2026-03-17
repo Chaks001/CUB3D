@@ -1,0 +1,11 @@
+.vscode/
+mlx/
+cube3d.pdf
+IMAGE MUR/
+*.o
+*.a
+*.out
+*.log
+cub3D
+a.out
+.DS_Store
