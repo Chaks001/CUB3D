@@ -6,62 +6,56 @@
 /*   By: vpoelman <vpoelman@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 21:34:46 by vpoelman          #+#    #+#             */
-/*   Updated: 2026/03/16 21:34:46 by vpoelman         ###   ########.fr       */
+/*   Updated: 2026/03/18 20:52:42 by vpoelman         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/cube3d.h"
 
-static int	read_to_buffer(int fd, char *buffer, int *buffer_pos,
-		int *buffer_size)
+static char	*append_char(char *line, char c)
 {
-	if (*buffer_pos >= *buffer_size)
-	{
-		*buffer_size = read(fd, buffer, 1023);
-		if (*buffer_size <= 0)
-			return (0);
-		buffer[*buffer_size] = '\0';
-		*buffer_pos = 0;
-	}
-	return (1);
+	char	buf[2];
+	char	*tmp;
+
+	buf[0] = c;
+	buf[1] = '\0';
+	if (!line)
+		tmp = ft_strjoin("", buf);
+	else
+		tmp = ft_strjoin(line, buf);
+	free(line);
+	return (tmp);
 }
 
-static void	process_buffer(char *buffer, int *buffer_pos, char *temp,
-		int *line_pos)
+static char	*read_char(int fd, char *line)
 {
-	if (buffer[*buffer_pos] == '\n')
+	char	buf[2];
+	int		bytes;
+
+	buf[1] = '\0';
+	while (1)
 	{
-		(*buffer_pos)++;
-		return ;
+		bytes = read(fd, buf, 1);
+		if (bytes < 0)
+			return (free(line), NULL);
+		if (bytes == 0)
+			break ;
+		if (buf[0] == '\n')
+		{
+			if (!line)
+				return (ft_strdup(""));
+			return (line);
+		}
+		line = append_char(line, buf[0]);
+		if (!line)
+			return (NULL);
 	}
-	if (*line_pos < 1023)
-		temp[(*line_pos)++] = buffer[(*buffer_pos)++];
-	else
-		(*buffer_pos)++;
+	return (line);
 }
 
 char	*get_next_line(int fd)
 {
-	static char	buffer[1024];
-	static int	buffer_pos = 0;
-	static int	buffer_size = 0;
-	char		temp[1024];
-	int			line_pos;
-
-	line_pos = 0;
-	while (1)
-	{
-		if (!read_to_buffer(fd, buffer, &buffer_pos, &buffer_size))
-			break ;
-		if (buffer[buffer_pos] == '\n')
-		{
-			buffer_pos++;
-			break ;
-		}
-		process_buffer(buffer, &buffer_pos, temp, &line_pos);
-	}
-	if (line_pos == 0 && buffer_size <= 0)
+	if (fd < 0)
 		return (NULL);
-	temp[line_pos] = '\0';
-	return (ft_strdup(temp));
+	return (read_char(fd, NULL));
 }

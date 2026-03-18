@@ -30,5 +30,6 @@ void	ft_putstr_fd(char *s, int fd);
 void	ft_putchar_fd(char c, int fd);
 char	*ft_strchr(const char *s, int c);
 void	ft_putnbr_fd(int n, int fd);
+char	*ft_strjoin(char const *s1, char const *s2);
 
 #endif
