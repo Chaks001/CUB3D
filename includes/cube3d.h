@@ -155,7 +155,6 @@ void			free_visited_map(char **visited, int height);
 /* parsing/utils.c */
 char			**read_file_lines(char *filename);
 int				count_lines(char **lines);
-void			free_lines(char **lines);
 int				is_valid_extension(char *filename, char *extension);
 
 /* parsing/parse_colors.c */
@@ -202,7 +201,7 @@ int				print_error(char *message, t_game *game);
 
 /* utils/cleanup.c */
 void			cleanup_game(t_game *game);
-void			free_map(char **map);
+void			free_lines(char **lines);
 int				close_game(t_game *game);
 
 #endif

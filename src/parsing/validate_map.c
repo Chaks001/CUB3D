@@ -50,31 +50,29 @@ static int	flood_fill(t_game *game, char **visited, int x, int y)
 	return (0);
 }
 
-// static int	check_unreachable(t_game *game, char **visited)
-// {
-// 	int	x;
-// 	int	y;
+static int	check_unvisited(t_game *game, char **visited)
+{
+	int	x;
+	int	y;
 
-// 	y = 0;
-// 	while (y < game->map_height)
-// 	{
-// 		x = 0;
-// 		while (x < game->map_width)
-// 		{
-// 			if (game->map[y][x] == '0' && visited[y][x] == '0')
-// 			{
-// 				if (flood_fill(game, visited, x, y))
-// 				{
-// 					print_error("Map contains unreachable or open areas", game);
-// 					return (1);
-// 				}
-// 			}
-// 			x++;
-// 		}
-// 		y++;
-// 	}
-// 	return (0);
-// }
+	y = 0;
+	while (y < game->map_height)
+	{
+		x = 0;
+		while (x < game->map_width)
+		{
+			if (game->map[y][x] != '1' && game->map[y][x] != ' '
+				&& visited[y][x] == '0')
+			{
+				print_error("Map contains unreachable or open areas", game);
+				return (1);
+			}
+			x++;
+		}
+		y++;
+	}
+	return (0);
+}
 
 int	validate_map(t_game *game)
 {
@@ -90,6 +88,11 @@ int	validate_map(t_game *game)
 	if (flood_fill(game, visited, px, py))
 	{
 		print_error("Map is not properly enclosed by walls", game);
+		free_visited_map(visited, game->map_height);
+		return (1);
+	}
+	if (check_unvisited(game, visited))
+	{
 		free_visited_map(visited, game->map_height);
 		return (1);
 	}

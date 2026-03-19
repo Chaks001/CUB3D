@@ -43,31 +43,38 @@ static char	**append_line(char **lines, char *line, int count)
 	return (temp);
 }
 
-char	**read_file_lines(char *filename)
+static char	**read_loop(int fd, char **lines)
 {
-	int		fd;
 	char	*line;
-	char	**lines;
+	char	**tmp;
 	int		count;
 
-	fd = open(filename, O_RDONLY);
-	if (fd < 0)
-		return (NULL);
-	lines = NULL;
 	count = 0;
 	line = get_next_line(fd);
 	while (line != NULL)
 	{
-		lines = append_line(lines, line, count);
-		if (!lines)
+		tmp = append_line(lines, line, count++);
+		if (!tmp)
 		{
+			free_lines(lines);
 			free(line);
-			close(fd);
 			return (NULL);
 		}
-		count++;
+		lines = tmp;
 		line = get_next_line(fd);
 	}
+	return (lines);
+}
+
+char	**read_file_lines(char *filename)
+{
+	int		fd;
+	char	**lines;
+
+	fd = open(filename, O_RDONLY);
+	if (fd < 0)
+		return (NULL);
+	lines = read_loop(fd, NULL);
 	close(fd);
 	return (lines);
 }
@@ -82,19 +89,4 @@ int	count_lines(char **lines)
 	while (lines[count])
 		count++;
 	return (count);
-}
-
-void	free_lines(char **lines)
-{
-	int	i;
-
-	if (!lines)
-		return ;
-	i = 0;
-	while (lines[i])
-	{
-		free(lines[i]);
-		i++;
-	}
-	free(lines);
 }
