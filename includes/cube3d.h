@@ -20,11 +20,6 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-# ifdef __linux__
-#  include <X11/X.h>
-#  include <X11/keysym.h>
-# endif
-
 # define WINDOW_WIDTH 1280
 # define WINDOW_HEIGHT 720
 # define FOV 66
@@ -37,23 +32,13 @@
 # define EAST 2
 # define WEST 3
 
-# ifdef __linux__
-#  define KEY_W 119
-#  define KEY_A 97
-#  define KEY_S 115
-#  define KEY_D 100
-#  define KEY_LEFT 65361
-#  define KEY_RIGHT 65363
-#  define KEY_ESC 65307
-# else
-#  define KEY_W 13
-#  define KEY_A 0
-#  define KEY_S 1
-#  define KEY_D 2
-#  define KEY_LEFT 123
-#  define KEY_RIGHT 124
-#  define KEY_ESC 53
-# endif
+# define KEY_W 119
+# define KEY_A 97
+# define KEY_S 115
+# define KEY_D 100
+# define KEY_LEFT 65361
+# define KEY_RIGHT 65363
+# define KEY_ESC 65307
 
 typedef struct s_img
 {
@@ -134,72 +119,71 @@ typedef struct s_game
 	int			has_moved;
 }				t_game;
 
-/* parsing/parse_file.c */
+
 int				parse_file(char *filename, t_game *game);
 
-/* parsing/parse_map.c */
+
 int				parse_map(char **lines, t_game *game, int start);
 int				find_max_width(char **lines, int start);
 
-/* parsing/parse_elements.c */
+
 int				parse_elements(char **lines, t_game *game);
 
-/* parsing/validate_map.c */
+
 int				validate_map(t_game *game);
 
-/* parsing/map_alloc.c */
+
 char			**allocate_map(int height, int width);
 char			**create_visited_map(t_game *game);
 void			free_visited_map(char **visited, int height);
 
-/* parsing/utils.c */
+
 char			**read_file_lines(char *filename);
 int				count_lines(char **lines);
 int				is_valid_extension(char *filename, char *extension);
 
-/* parsing/parse_colors.c */
+
 int				parse_color(char *line, t_game *game, int is_ceiling);
 
-/* parsing/gnl.c */
+
 char			*get_next_line(int fd);
 
-/* game/game.c */
+
 int				init_game(t_game *game);
 int				game_loop(t_game *game);
 void			init_player_direction(t_game *game, char dir);
 
-/* game/hooks.c */
+
 int				key_press(int keycode, t_game *game);
 int				key_release(int keycode, t_game *game);
 
-/* game/movement.c */
+
 void			handle_movement(t_game *game);
 
-/* raycasting/raycasting.c */
+
 void			raycasting(t_game *game);
 
-/* raycasting/dda.c */
+
 void			calculate_ray(t_game *game, t_ray *ray, int x);
 void			perform_dda(t_game *game, t_ray *ray);
 
-/* raycasting/render.c */
+
 void			draw_vertical_line(t_game *game, t_ray *ray, int x);
 
-/* raycasting/texture.c */
+
 int				load_textures(t_game *game);
 int				load_texture_from_file(t_game *game, t_texture *texture,
 					char *path);
 void			free_texture(t_game *game, t_texture *texture);
 
-/* utils/graphics.c */
+
 int				create_rgb(int r, int g, int b);
 int				get_pixel_color(t_img *img, int x, int y);
 void			put_pixel(t_img *img, int x, int y, int color);
 
-/* utils/error.c */
+
 int				print_error(char *message, t_game *game);
 
-/* utils/cleanup.c */
 void			cleanup_game(t_game *game);
 void			free_lines(char **lines);
 int				close_game(t_game *game);

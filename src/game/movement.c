@@ -16,7 +16,7 @@ static int	is_wall(t_game *game, double x, double y)
 {
 	if (x < 0 || x >= game->map_width || y < 0 || y >= game->map_height)
 		return (1);
-	if (game->map[(int)y][(int)x] == '1' || game->map[(int)y][(int)x] == ' ')
+	if (game->map[(int)y][(int)x] == '1')
 		return (1);
 	return (0);
 }
@@ -38,24 +38,24 @@ static void	rotate_player(t_game *game, double rot_speed)
 		* cos(rot_speed);
 }
 
-static void	move_player(t_game *game, double speed)
+static void	move_player(t_game *game, double direction)
 {
-	if (!is_wall(game, game->player.x + game->player.dir_x * speed * MOVE_SPEED,
+	if (!is_wall(game, game->player.x + game->player.dir_x * direction * MOVE_SPEED,
 			game->player.y))
-		game->player.x += game->player.dir_x * speed * MOVE_SPEED;
+		game->player.x += game->player.dir_x * direction * MOVE_SPEED;
 	if (!is_wall(game, game->player.x, game->player.y + game->player.dir_y
-			* speed * MOVE_SPEED))
-		game->player.y += game->player.dir_y * speed * MOVE_SPEED;
+			* direction * MOVE_SPEED))
+		game->player.y += game->player.dir_y * direction * MOVE_SPEED;
 }
 
-static void	move_strafe(t_game *game, double speed)
+static void	move_strafe(t_game *game, double direction)
 {
-	if (!is_wall(game, game->player.x + game->player.plane_x * speed
+	if (!is_wall(game, game->player.x + game->player.plane_x * direction
 			* MOVE_SPEED, game->player.y))
-		game->player.x += game->player.plane_x * speed * MOVE_SPEED;
+		game->player.x += game->player.plane_x * direction * MOVE_SPEED;
 	if (!is_wall(game, game->player.x, game->player.y + game->player.plane_y
-			* speed * MOVE_SPEED))
-		game->player.y += game->player.plane_y * speed * MOVE_SPEED;
+			* direction * MOVE_SPEED))
+		game->player.y += game->player.plane_y * direction * MOVE_SPEED;
 }
 
 void	handle_movement(t_game *game)
