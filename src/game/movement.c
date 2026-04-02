@@ -40,8 +40,8 @@ static void	rotate_player(t_game *game, double rot_speed)
 
 static void	move_player(t_game *game, double direction)
 {
-	if (!is_wall(game, game->player.x + game->player.dir_x * direction * MOVE_SPEED,
-			game->player.y))
+	if (!is_wall(game, game->player.x + game->player.dir_x * direction
+			* MOVE_SPEED, game->player.y))
 		game->player.x += game->player.dir_x * direction * MOVE_SPEED;
 	if (!is_wall(game, game->player.x, game->player.y + game->player.dir_y
 			* direction * MOVE_SPEED))

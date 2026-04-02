@@ -119,71 +119,37 @@ typedef struct s_game
 	int			has_moved;
 }				t_game;
 
-
 int				parse_file(char *filename, t_game *game);
-
-
 int				parse_map(char **lines, t_game *game, int start);
 int				find_max_width(char **lines, int start);
-
-
 int				parse_elements(char **lines, t_game *game);
-
-
 int				validate_map(t_game *game);
-
-
 char			**allocate_map(int height, int width);
 char			**create_visited_map(t_game *game);
 void			free_visited_map(char **visited, int height);
-
-
 char			**read_file_lines(char *filename);
 int				count_lines(char **lines);
 int				is_valid_extension(char *filename, char *extension);
-
-
 int				parse_color(char *line, t_game *game, int is_ceiling);
-
-
 char			*get_next_line(int fd);
-
-
 int				init_game(t_game *game);
 int				game_loop(t_game *game);
 void			init_player_direction(t_game *game, char dir);
-
-
 int				key_press(int keycode, t_game *game);
 int				key_release(int keycode, t_game *game);
-
-
 void			handle_movement(t_game *game);
-
-
 void			raycasting(t_game *game);
-
-
 void			calculate_ray(t_game *game, t_ray *ray, int x);
 void			perform_dda(t_game *game, t_ray *ray);
-
-
 void			draw_vertical_line(t_game *game, t_ray *ray, int x);
-
-
 int				load_textures(t_game *game);
 int				load_texture_from_file(t_game *game, t_texture *texture,
 					char *path);
 void			free_texture(t_game *game, t_texture *texture);
-
-
 int				create_rgb(int r, int g, int b);
 int				get_pixel_color(t_img *img, int x, int y);
 void			put_pixel(t_img *img, int x, int y, int color);
-
-
 int				print_error(char *message, t_game *game);
-
 void			cleanup_game(t_game *game);
 void			free_lines(char **lines);
 int				close_game(t_game *game);

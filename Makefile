@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: your_login <your_login@student.42.fr>      +#+  +:+       +#+         #
+#    By: vpoelman <vpoelman@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/01/01 12:00:00 by your_login       #+#    #+#              #
-#    Updated: 2024/01/01 12:00:00 by your_login      ###   ########.fr        #
+#    Created: 2026/04/02 16:28:11 by vpoelman          #+#    #+#              #
+#    Updated: 2026/04/02 16:28:11 by vpoelman         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,15 +15,12 @@ NAME = cub3D
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -Iincludes -I$(MLX_DIR) -I$(LIBFT_DIR)
 
-# Directories
 LIBFT_DIR = libft
 MLX_DIR = mlx
 
-# Libraries
 LIBFT = $(LIBFT_DIR)/libft.a
 MLX = $(MLX_DIR)/libmlx.a
 
-# Source files
 SRCS = src/main.c \
        src/game/game.c \
        src/game/hooks.c \
@@ -34,6 +31,7 @@ SRCS = src/main.c \
        src/parsing/parse_elements.c \
        src/parsing/parse_file.c \
        src/parsing/parse_map.c \
+       src/parsing/lines_utils.c \
        src/parsing/utils.c \
        src/parsing/validate_map.c \
        src/raycasting/dda.c \

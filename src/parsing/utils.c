@@ -78,30 +78,3 @@ char	**read_file_lines(char *filename)
 	close(fd);
 	return (lines);
 }
-
-int	count_lines(char **lines)
-{
-	int	count;
-
-	if (!lines)
-		return (0);
-	count = 0;
-	while (lines[count])
-		count++;
-	return (count);
-}
-
-void	free_lines(char **lines)
-{
-	int	i;
-
-	if (!lines)
-		return ;
-	i = 0;
-	while (lines[i])
-	{
-		free(lines[i]);
-		i++;
-	}
-	free(lines);
-}
