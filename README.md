@@ -71,9 +71,10 @@ make re       # Full recompile
 
 ### Raycasting & 3D rendering
 
-- [Lode's Raycasting Tutorial](https://lodev.org/cgtutor/raycasting.html) — the main reference for the raycasting algorithm (DDA, texture mapping, camera plane)
-- [Wolfenstein 3D source code](https://github.com/id-Software/wolf3d) — the original FPS that popularized raycasting
+- [Lode's Raycasting Tutorial](https://lodev.org/cgtutor/raycasting.html)
+- [Wolfenstein 3D source code](https://github.com/id-Software/wolf3d)
 - [MiniLibX documentation](https://harm-smits.github.io/42docs/libs/minilibx) — reference for the graphics library used
+- https://lodev.org/cgtutor/raycasting.html
 
 ### AI usage
 
