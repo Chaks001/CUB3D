@@ -73,7 +73,7 @@ make re       # Full recompile
 
 - [Lode's Raycasting Tutorial](https://lodev.org/cgtutor/raycasting.html)
 - [Wolfenstein 3D source code](https://github.com/id-Software/wolf3d)
-- [MiniLibX documentation](https://harm-smits.github.io/42docs/libs/minilibx) — reference for the graphics library used
+- [MiniLibX documentation](https://harm-smits.github.io/42docs/libs/minilibx)
 - https://lodev.org/cgtutor/raycasting.html
 
 ### AI usage
